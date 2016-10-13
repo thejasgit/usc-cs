@@ -1,0 +1,290 @@
+body {
+    background-image: url(http://cs-server.usc.edu:45678/hw/hw3/images/bg.png);
+    font-family: "Trebuchet MS";
+}
+
+
+
+.main-content {
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 950px;
+}
+
+a{
+    outline: none;
+}
+.header {
+    margin-top: 50px;
+    margin-left: 10px;
+}
+
+.header:hover {
+    cursor: default;
+}
+
+.main-heading {
+    font-size: 48px;
+}
+
+.menu-bar {
+    margin-top: 30px;
+}
+
+.menu-bar ul {
+    list-style-type: none;
+    margin: 0;
+    overflow: hidden;
+    background-color: black;
+    border-radius: 5px;
+}
+
+.menu-bar ul li {
+    float: left;
+}
+
+.menu-bar ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 11px 20px;
+    text-decoration: none;
+}
+
+.menu-bar ul li a:hover:not(.active) {
+    background-color: #c9434f;
+}
+
+.active {
+    background-color: #c9434f;
+}
+
+.home {
+    border-radius: 5px 0px 0px 5px;
+}
+
+.container {
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 30px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.container-nobg {
+    margin-top: 30px;
+}
+
+.container-nobg table {
+    width: 100%
+}
+
+.container table {
+    width: 845px;
+    padding: 2%;
+}
+
+.section1 {
+    width: 450px;
+}
+
+.sec1-sub-header {
+    width: 285px;
+}
+
+.sec1-sub-header:hover {
+    background-color: #c9434f;
+    color: white;
+    cursor: pointer;
+}
+
+.section2 {
+    margin-left: 150px;
+}
+
+.section2 img {
+    border: 2px solid #eeeeee;
+}
+
+.container2-table {
+    margin-left: 50px;
+    padding-right: 0px !important;
+}
+
+.container2-table:hover {
+    background-color: #c9434f;
+    color: white;
+}
+
+.container2-table:hover *.inactive-link,
+.container2-table:hover *.heading-red {
+    color: #f4b679;
+}
+
+.column-date {
+    width: 150px;
+}
+
+.column-discr {
+    padding-left: 45px;
+    width: 400px;
+}
+
+.section3 {
+    width: 200px;
+    padding-bottom: 30px;
+}
+
+.section4 {
+    padding-top: 20px;
+    width: 600px;
+}
+
+.clickable-link {
+    color: white !important;
+}
+
+.clickable-link a {
+    display: block;
+    color: black;
+}
+
+.clickable-link a:hover {
+    color: white;
+}
+
+.clickable-link a:link {
+    text-decoration: none;
+}
+
+.clickable-link:hover {
+    color: white;
+    background-color: #c9434f;
+}
+
+.clickable-link:hover a {
+    color: white;
+}
+
+.section5 {
+    width: 500px;
+}
+
+.section6 {
+    width: auto;
+}
+
+.section7 {
+    width: 200px;
+}
+
+.section7 p {
+    margin-top: 0px;
+}
+
+.hr-line1 {
+    margin-left: 55px;
+    margin-right: 28px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+}
+
+.heading-red {
+    color: #c8414f;
+}
+
+.blog-roll-table {
+    margin-left: 35px;
+}
+
+.blog-roll-table tbody tr td {
+    width: 200px;
+}
+
+.social-div {
+    margin-left: 35px;
+}
+
+.social-div div {
+    width: 100%;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.social-div a {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    color: black;
+    width: 100%;
+    height: 100%;
+}
+
+.social-div a:link {
+    text-decoration: none;
+}
+
+.social-div div img {
+    padding-left: 3px;
+}
+
+.social-div div:hover {
+    color: white;
+    background-color: #c9434f;
+}
+
+.social-div div:hover a {
+    color: white;
+}
+
+.social-padding {
+    padding-left: 10px;
+}
+
+.hr-line2 {
+    border-top: 1px solid #deddd8;
+    border-bottom: 1px solid #fff;
+    margin: 0px;
+}
+
+.inactive-link {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.last {
+    margin-bottom: 0px;
+}
+
+.font-21{
+    font-size: 21px;
+}
+
+.font-25{
+    font-size: 1.5em;
+}
+
+.section8 {
+    width: 675px;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    
+}
+
+.section8 img {
+    padding-top: 20px;
+}
+
+.section8 p {
+    margin-left: 30px;
+}
+
+.footer {
+    margin-top: 15px;
+    float: right;
+}

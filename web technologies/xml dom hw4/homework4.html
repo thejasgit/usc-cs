@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>XML Parser</title>
+    <style>
+        .main {
+            width: 500px;
+            margin: auto;
+            margin-top: 10%
+        }
+        
+        form{
+            
+            text-align: center
+        }
+        
+       
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        
+       
+            <form onsubmit="return getData();">
+               <h2>Enter URL for Newspaper List XML File</h2>
+                <input id="url" name="url" type="text">
+                <br>
+                <br>
+                <input class="submit-btn" type="submit" value="submit Query">
+            </form>
+      
+
+    </div>
+    <script type="text/javascript">
+        function getData() {
+
+            if (isEmptyOrSpaces(document.getElementById('url').value)) {
+                alert('URL is empty!');
+                return;
+            }
+            url = document.getElementById('url').value;
+            getXMLDocument(url);
+
+            return false;
+
+        }
+
+
+        function getXMLDocument(url) {
+
+
+            var data;
+
+            var xhttp = new XMLHttpRequest();
+         //  xhttp.onreadystatechange = function () {
+             xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    if (this.responseXML == null || this.responseXML.documentElement.nodeName == "parsererror") {
+                        alert('Error in XML file! (XML parsing Error)');
+                        return;
+                    }
+                    data = this.responseXML;
+                   
+                    writeDocument(data);
+                } else if (this.readyState == 4 && this.status == 404) {
+                    alert('XML File not found!');
+                    return;
+                }
+            };
+            xhttp.open("GET", url,false);
+            try{
+                xhttp.send();
+            }catch(err){
+                
+                if(err.name=='NS_ERROR_DOM_BAD_URI')
+                alert('XML File not found!');
+                else 
+                alert(err);
+                
+                return;
+            }
+
+
+        }
+
+        function writeDocument(xmlDoc) {
+
+
+
+            var table, header, row, hdata, location;
+            var HTMLString = "<html><head><title>NewsPaper List</title></head>";
+            HTMLString += "<body><table border=1 cellpadding=5 style=\"width:90%;margin:auto;\"><tr>";
+
+
+            if (xmlDoc.documentElement.nodeName != 'Workbook') {
+
+                alert('Root node (Workbook) not found!');
+                return;
+            }
+
+            if (xmlDoc.getElementsByTagName("Table").length == 0) {
+                alert('table Tag not found');
+                return;
+            }
+
+            table = xmlDoc.getElementsByTagName("Table")[0];
+
+
+            if (table.getElementsByTagName("Header").length == 0) {
+                alert('Header Tag not found');
+                return;
+            }
+
+            if (table.getElementsByTagName("Row").length == 0) {
+                alert('No Company Entries found in the XML! (0 Rows)');
+                return;
+            }
+            header = table.getElementsByTagName("Header")[0];
+
+            hdata = header.childNodes;
+
+            for (i = 0; i < hdata.length; i++) {
+
+                if (hdata.item(i).nodeType == 1)
+                    HTMLString += '<th>' + hdata[i].childNodes[0].nodeValue + '</th>';
+            }
+
+            row = table.getElementsByTagName('Row');
+            for (i = 0; i < row.length; i++) {
+
+                HTMLString += '<tr>'
+
+                if (row.item(i).getElementsByTagName('Slot')[0].childNodes.length) {
+                    
+                    if(row.item(i).getElementsByTagName('Slot')[0].childNodes[0].nodeValue.trim().length)
+                    {
+                    HTMLString += '<td>' + row.item(i).getElementsByTagName('Slot')[0].childNodes[0].nodeValue; + '</td>';
+                    }
+                    else{
+                    HTMLString += '<td>N.A</td>';
+                    }
+                } else {
+                    HTMLString += '<td>N.A</td>';
+                }
+                if (row.item(i).getElementsByTagName('Newspaper')[0].childNodes.length) {
+                    if(row.item(i).getElementsByTagName('Newspaper')[0].childNodes[0].nodeValue.trim().length)
+                    HTMLString += '<td>' + row.item(i).getElementsByTagName('Newspaper')[0].childNodes[0].nodeValue + '</td>';
+                    else
+                        HTMLString += '<td>N.A</td>';
+                } else {
+                    HTMLString += '<td>N.A</td>';
+                }
+
+                var location = row.item(i).getElementsByTagName('Location')[0].childNodes;
+               
+                var locationList = "";
+                for (j = 0; j < location.length; j++) {
+                    if (location[j].nodeType == 1 && location[j].childNodes.length)
+                        if(location[j].childNodes[0].nodeValue.trim()!='')
+                        locationList += '<li>' + location[j].childNodes[0].nodeValue + '</li>';
+                }
+                
+                if (locationList == "") {
+                    HTMLString += '<td>N.A</td>';
+                } else {
+                    HTMLString += '<td><ul>' + locationList + '</ul></td>';
+                }
+
+
+                if (row.item(i).getElementsByTagName('HomePage')[0].childNodes.length) {
+                    if(row.item(i).getElementsByTagName('HomePage')[0].childNodes[0].nodeValue.trim().length){
+                    HTMLString += '<td><a href="' + row.item(i).getElementsByTagName('HomePage')[0].childNodes[0].nodeValue + '">' + row.item(i).getElementsByTagName('HomePage')[0].childNodes[0].nodeValue + '</td>';
+                    }
+                    else{
+                        HTMLString += '<td>N.A</td>';
+                    }
+                } else {
+                    HTMLString += '<td>N.A</td>';
+                }
+
+                if (row.item(i).getElementsByTagName('Logo')[0].childNodes.length) {
+                    if(row.item(i).getElementsByTagName('Logo')[0].childNodes[0].nodeValue.trim().length){
+                    HTMLString += '<td><img height=150 style="width:100%" src="' + row.item(i).getElementsByTagName('Logo')[0].childNodes[0].nodeValue + '">' + '</td>';
+                    }
+                    else
+                        HTMLString += '<td>N.A</td>';
+                } else {
+                    HTMLString += '<td>N.A</td>';
+                }
+
+
+                HTMLString += '</tr>'
+            }
+            HTMLString += '</tr></table></body></html>'
+               
+            var params = [
+                         'width=' + (screen.width-50),
+                        'height=' + screen.height,
+                       
+                        'scrollbars=yes'].join(',');
+           
+            Widget = window.open("", "widget", params);
+            Widget.document.write(HTMLString);
+        }
+
+        function isEmptyOrSpaces(str) {
+            return str === null || str.match(/^ *$/) !== null;
+
+        }
+    </script>
+</body>
+
+</html>
