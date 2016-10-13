@@ -1,0 +1,2 @@
+# usc-cs
+college assignments
